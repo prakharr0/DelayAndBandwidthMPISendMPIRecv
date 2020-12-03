@@ -113,57 +113,9 @@ int main(int argc, char* argv[]){
     printf("Delay:%lf\n", delay);  //in microseconds
     printf("Bandwidth:%lf\n", bandwidth); //  GB/s using chunk size 32MiB
   }
- /*
-  // TO CHECK IF THE METHOD IS CORRECT AS PER THE GRAPH IN THE INTRODUCTION PDF
-  // SENDING A DATA CHUNK OF 1 Byte.
   
-  long int check_array_size = 1;
-
-  double *check_buffer_array = (double*) malloc(check_array_size * sizeof(double));
-
-  for(index = 0 ; index < check_array_size ; index++){
-    check_buffer_array[index] = 1.0;
-  }
-  
-  MPI_Barrier(MPI_COMM_WORLD);
-  double startTime_bandwidth_check = MPI_Wtime();
-
-  for(index = 0 ; index < n_transfers * 2; index ++){
-    if(my_rank == 0){
-      MPI_Send( check_buffer_array , check_array_size , MPI_DOUBLE , 1 , tag_zero_to_one , MPI_COMM_WORLD);
-      MPI_Recv( check_buffer_array , check_array_size , MPI_DOUBLE , 1 , tag_one_to_zero , MPI_COMM_WORLD,MPI_STATUS_IGNORE);
-    }
-
-    else
-    {
-      MPI_Recv( check_buffer_array , check_array_size , MPI_DOUBLE, 0 , tag_zero_to_one , MPI_COMM_WORLD,MPI_STATUS_IGNORE);
-      MPI_Send( check_buffer_array , check_array_size , MPI_DOUBLE , 0 , tag_one_to_zero , MPI_COMM_WORLD);
-    }
-  }
-
-  MPI_Barrier(MPI_COMM_WORLD);
-  double finishTime_bandwidth_check = MPI_Wtime();
-  
-  double elapsedTime_bandwidth_check = finishTime_bandwidth_check - startTime_bandwidth_check;
-
-  // since MPI_Wtime() returns the number of seconds, our need --> convert MB to GB
-
-  double data_1B_in_GB =  (double)8*check_array_size / (double)(1 << 30) ;
-
-  double average_time_per_transfer_check = elapsedTime_bandwidth_check / n_transfers;
-
-  double delay_bandwidth_check = (double) average_time_per_transfer_check / 2;
-
-  double bandwidth_check = sizeof(double) * data_1B_in_GB / delay_bandwidth_check;
- 
-  if(my_rank==0){
-   printf("The check bandwidth is: %lf", bandwidth_check);
-  }
-  */
   MPI_Finalize();
 
-  //printf("Delay:%lf\n", delay);     // in microseconds
-  //printf("Bandwidth:%lf\n", bandwidth); //  GB/s using chunk size 32MiB
   return EXIT_SUCCESS;
 }
 
