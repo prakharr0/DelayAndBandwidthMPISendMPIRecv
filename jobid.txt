@@ -1,0 +1,5 @@
+Batch job id: 747335.
+output file: slurm-747335.out {
+   Delay:1.002700
+   Bandwidth:11.520435
+}
